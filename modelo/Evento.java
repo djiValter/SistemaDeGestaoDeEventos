@@ -68,8 +68,15 @@ public class Evento {
         this.idPromotor = idPromotor;
     }
 
-    public void visualizarEventos(){
-
+    @Override
+    public String toString() {
+        return "Evento\n" +
+                "id=" + id +
+                "\n titulo='" + titulo + '\'' +
+                " \n descricao='" + descricao + '\'' +
+                " \n data=" + data +
+                " \n local='" + local + '\'' +
+                " \n idPromotor=" + idPromotor;
     }
 }
 
