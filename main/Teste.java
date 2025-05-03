@@ -2,7 +2,9 @@ package main;
 import java.time.LocalDate;
 
 import janelas.MenuPrincipal;
+import janelas.TelaCadastro;
 import janelas.TelaLogin;
+import janelas.TelaPromotor;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 import servicos.UsuarioServicos;
@@ -16,16 +18,14 @@ import java.util.Scanner;
 
 public class Teste {
     public static void main(String[] args) {
-        new MenuPrincipal();
-
         Scanner scan = new Scanner(System.in);
         UsuarioServicos usuarioService = new UsuarioServicos();
         EventoServicos eventoService = new EventoServicos();
         while (true) {
             System.out.println("\n=== Sistema de Gestão de Eventos ===");
-            System.out.println("1 - Cadastrar");
-            System.out.println("2 - Login");
-            System.out.println("0 - Sair");
+            System.out.println("1. Cadastrar");
+            System.out.println("2. Login");
+            System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             int opcao = scan.nextInt();
             scan.nextLine(); // limpar buffer

@@ -3,11 +3,13 @@ package janelas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Scanner;
 
 public class MenuPrincipal extends JFrame {
     private JTextField campoTexto;
     private JLabel campoInfo;
     private JButton botaoEntrar;
+    private static String numeroDigitado;
 
 
     public MenuPrincipal(){
@@ -41,12 +43,16 @@ public class MenuPrincipal extends JFrame {
         campoInfo.setBounds(100, 305, 339, 37);
         add(campoInfo);
 
+        campoTexto = entrarTexto();
+        campoTexto.setBounds(100, 380, 100, 25);
+        add(campoTexto);
+
         botaoEntrar = criarBotaoEntrar();
-        botaoEntrar.setBounds(160, 380, 200, 30);
+        botaoEntrar.setBounds(320, 380, 100, 25);
         add(botaoEntrar);
     }
 
-    private JTextField criarTexto(){
+    private JTextField entrarTexto(){
         return new JTextField();
     }
 
@@ -57,9 +63,12 @@ public class MenuPrincipal extends JFrame {
     private JButton criarBotaoEntrar() {
         JButton botao = new JButton("ENTRAR");
         botao.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Entrando no sistema...");
-            // Aqui você pode abrir uma nova janela, se quiser
+            numeroDigitado = campoTexto.getText();
         });
         return botao;
+    }
+
+    public static String getNumeroDigitado(){
+        return numeroDigitado;
     }
 }
