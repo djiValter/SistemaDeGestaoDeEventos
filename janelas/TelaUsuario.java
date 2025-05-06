@@ -3,12 +3,12 @@ import modelo.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
-public class TelaPromotor extends JFrame {
+public class TelaUsuario extends JFrame {
     private JTextField campo;
     private JButton botaoEntrar;
 
-    public TelaPromotor(Usuario usuario){
-        setTitle("Tela do Promotor");
+    public TelaUsuario(Usuario usuario){
+        setTitle("Tela do Usuário");
         setSize(526, 641);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -18,30 +18,26 @@ public class TelaPromotor extends JFrame {
     }
 
     private void inicializarComponentes() {
-        JLabel labelCadastro = new JLabel("TELA DO PROMOTOR");
+        JLabel labelCadastro = new JLabel("TELA USUÁRIO");
         labelCadastro.setBounds(220, 30, 100, 25);
         labelCadastro.setForeground(Color.BLUE);
         add(labelCadastro);
 
-        JLabel criarEvento = new JLabel("1 - Criar Evento");
+        JLabel criarEvento = new JLabel("1 - Ver lista de Eventos Disponíveis");
         criarEvento.setBounds(100, 138, 327, 37);
         add(criarEvento);
 
-        JLabel editarEvento = new JLabel("2 - Editar Evento");
-        editarEvento.setBounds(100, 209, 327, 37);
+        JLabel editarEvento = new JLabel("2 - Meus Eventos");
+        editarEvento.setBounds(100, 205, 327, 37);
         add(editarEvento);
 
-        JLabel removerEvento = new JLabel("3 - Remover Evento");
+        JLabel removerEvento = new JLabel("3 - Confirmar presença ");
         removerEvento.setBounds(100, 273, 327, 37);
         add(removerEvento);
 
-        JLabel meusEventos = new JLabel("4 - Meus Eventos");
+        JLabel meusEventos = new JLabel("0 - Sair");
         meusEventos.setBounds(100, 332, 327, 37);
         add(meusEventos);
-
-        JLabel sair = new JLabel("0 - Sair");
-        sair.setBounds(100, 396, 327, 37);
-        add(sair);
 
         campo = criarCampo();
         campo.setBounds(100, 481, 132, 25);
@@ -58,7 +54,7 @@ public class TelaPromotor extends JFrame {
 
     //Em construção
     private JButton criarBotaoEntrar() {
-        JButton botao = new JButton("Cadastrar");
+        JButton botao = new JButton("Entrar");
         botao.addActionListener(e -> {
             System.out.println("Login de: ");
         });

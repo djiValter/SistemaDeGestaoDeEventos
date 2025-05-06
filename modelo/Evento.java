@@ -1,16 +1,13 @@
 package modelo;
-
-import java.time.LocalDate;
-
 public class Evento {
     private int id;
     private String titulo;
     private String descricao;
-    private LocalDate data;
+    private String data;
     private String local;
     private int idPromotor;
 
-    public Evento(int id, String titulo, String descricao, LocalDate data, String local, int idPromotor){
+    public Evento(int id, String titulo, String descricao, String data, String local, int idPromotor){
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -44,11 +41,11 @@ public class Evento {
         this.descricao = descricao;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 

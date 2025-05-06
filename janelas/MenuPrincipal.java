@@ -1,15 +1,19 @@
 package janelas;
-
+import modelo.Usuario;
+import servicos.UsuarioServicos;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
+
+
 
 public class MenuPrincipal extends JFrame {
     private JTextField campoTexto;
     private JLabel campoInfo;
     private JButton botaoEntrar;
     private static String numeroDigitado;
+    private static int escolha;
 
 
     public MenuPrincipal(){
@@ -64,11 +68,35 @@ public class MenuPrincipal extends JFrame {
         JButton botao = new JButton("ENTRAR");
         botao.addActionListener(e -> {
             numeroDigitado = campoTexto.getText();
+            try {
+                escolha = Integer.parseInt(numeroDigitado); // ← agora atualiza o campo estático corretamente
+                dispose(); // fecha a janela ao clicar
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Digite um número válido.");
+            }
+            UsuarioServicos usuarioServicos = new UsuarioServicos();
+            switch (escolha){
+                case 1:
+                    new TelaCadastro(usuarioServicos);
+                    break;
+
+                case 2:
+                        new TelaLogin(usuarioServicos);
+                    break;
+
+                case 0:
+                    System.exit(0);
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção inválida.");
+            }
+
         });
         return botao;
     }
 
-    public static String getNumeroDigitado(){
-        return numeroDigitado;
+    public static int getEscolha(){
+        return escolha;
     }
 }

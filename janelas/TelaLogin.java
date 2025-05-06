@@ -1,14 +1,18 @@
 package janelas;
-
+import servicos.UsuarioServicos;
+import modelo.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class TelaLogin extends JFrame {
-    private JTextField campoUsuario;
+    private UsuarioServicos usuarioServicos;
+    private JTextField campoEmail;
     private JPasswordField campoSenha;
     private JButton botaoEntrar;
+    private Usuario usuario;
 
-    public TelaLogin(){
+    public TelaLogin(UsuarioServicos usuarioServicos){
+        this.usuarioServicos = usuarioServicos;
         setTitle("Login");
         setSize(526, 641);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,9 +33,9 @@ public class TelaLogin extends JFrame {
         labelUsuario.setBounds(100, 130, 100, 25);
         add(labelUsuario);
 
-        campoUsuario = criarCampoUsuario();
-        campoUsuario.setBounds(100, 160, 338, 30);
-        add(campoUsuario);
+        campoEmail = criarCampoEmail();
+        campoEmail.setBounds(100, 160, 338, 30);
+        add(campoEmail);
 
         JLabel labelSenha = new JLabel("Senha:");
         labelSenha.setBounds(100, 230, 100, 25);
@@ -41,12 +45,12 @@ public class TelaLogin extends JFrame {
         campoSenha.setBounds(100, 260, 338, 30);
         add(campoSenha);
 
-        botaoEntrar = criarBotaoEntrar();
+        botaoEntrar = criarBotaoEntrar(usuarioServicos);
         botaoEntrar.setBounds(160, 340, 200, 30);
         add(botaoEntrar);
     }
 
-    private JTextField criarCampoUsuario() {
+    private JTextField criarCampoEmail() {
         return new JTextField();
     }
 
@@ -54,13 +58,30 @@ public class TelaLogin extends JFrame {
         return new JPasswordField();
     }
 
-    private JButton criarBotaoEntrar() {
+    private JButton criarBotaoEntrar(UsuarioServicos usuarioServicos) {
         JButton botao = new JButton("Entrar");
         botao.addActionListener(e -> {
-            String usuario = campoUsuario.getText();
+            String email = campoEmail.getText();
             String senha = new String(campoSenha.getPassword());
-            System.out.println("Login de: " + usuario);
+
+            Usuario usuario = usuarioServicos.login(email, senha);
+
+            if (usuario != null) {
+                JOptionPane.showMessageDialog(this, "Login realizado com sucesso!");
+                dispose(); // Fecha a tela de login
+
+                if (usuario.getTipo() == TipoUsuario.PROMOTOR) {
+                    new TelaPromotor(usuario); // Exibe interface para promotor
+                } else {
+                    new TelaUsuario(usuario); // Exibe interface para usuário comum
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Email ou senha inválidos.");
+                new MenuPrincipal(); // Se falhar, retorna ao menu principal
+                dispose();
+            }
         });
         return botao;
     }
+
 }

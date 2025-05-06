@@ -1,26 +1,29 @@
 package main;
 import java.time.LocalDate;
+
+import janelas.*;
 import modelo.TipoUsuario;
 import modelo.Usuario;
 import servicos.UsuarioServicos;
 import servicos.EventoServicos;
 import modelo.Evento;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Teste {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         UsuarioServicos usuarioService = new UsuarioServicos();
         EventoServicos eventoService = new EventoServicos();
+
         while (true) {
+            new MenuPrincipal();
+            int opcao = MenuPrincipal.getEscolha();
             System.out.println("\n=== Sistema de Gestão de Eventos ===");
             System.out.println("1. Cadastrar");
             System.out.println("2. Login");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
-            int opcao = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
 
             switch (opcao) {
                 case 1:
@@ -89,7 +92,7 @@ public class Teste {
                     System.out.print("Descrição: ");
                     String descricao = scanner.nextLine();
                     System.out.print("Data (yyyy-mm-dd): ");
-                    LocalDate data = LocalDate.parse(scanner.nextLine());
+                    String data = scanner.nextLine();
                     System.out.print("Local: ");
                     String local = scanner.nextLine();
 
@@ -115,7 +118,7 @@ public class Teste {
                     System.out.print("Nova descrição: ");
                     String novaDescricao = scanner.nextLine();
                     System.out.print("Nova data (yyyy-mm-dd): ");
-                    LocalDate novaData = LocalDate.parse(scanner.nextLine());
+                    String novaData = scanner.nextLine();
                     System.out.print("Novo local: ");
                     String novoLocal = scanner.nextLine();
 
@@ -142,7 +145,43 @@ public class Teste {
     }
 
     private static void menuUsuario(Usuario usuario, Scanner scanner) {
-        System.out.println("\n*** Menu do Usuário ***");
-        // Aqui vamos mostrar eventos disponíveis etc.
+        int opcao;
+        do {
+            System.out.println("\n*** Menu do Usuário ***");
+            System.out.println("1. Ver todos os eventos");
+            System.out.println("2. Ver meus eventos");
+            System.out.println("3. Sair");
+
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("\n--- Lista de todos os eventos ---");
+                    List<Evento> eventos = EventoServicos.listarTodosEventos();
+                    if (eventos.isEmpty()) {
+                        System.out.println("Nenhum evento disponível.");
+                    } else {
+                        for (Evento e : eventos) {
+                            System.out.println(e);
+                        }
+                    }
+                    break;
+
+                case 2:
+                    // Exibir eventos que o usuário participou ou criou
+                    System.out.println("\n--- Meus eventos ---");
+                    // Exemplo: eventoServicos.listarEventosDoUsuario(usuario);
+                    break;
+
+                case 3:
+                    System.out.println("Saindo do menu do usuário.");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 3);
     }
 }
